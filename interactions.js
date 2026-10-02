@@ -11,6 +11,35 @@
  let previousHash = '';
  let lastCard;
  let activeNav;
+ const mobile = window.matchMedia('(max-width: 760px)');
+ const header = document.querySelector('.site-header');
+ const menuButton = document.createElement('button');
+ menuButton.type = 'button'; menuButton.className = 'menu-toggle';
+ menuButton.setAttribute('aria-label','打开导航菜单');
+ menuButton.setAttribute('aria-expanded','false');
+ menuButton.setAttribute('aria-controls','main-navigation');
+ nav.id = 'main-navigation';
+ for(let i=0;i<3;i++){const bar=document.createElement('span');bar.setAttribute('aria-hidden','true');menuButton.append(bar);}
+ header.append(menuButton);
+ document.documentElement.classList.add('mobile-ready');
+ function closeMenu(returnFocus=false){
+  header.classList.remove('menu-open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','打开导航菜单');
+  if(mobile.matches)nav.inert=true;
+  if(returnFocus)menuButton.focus();
+ }
+ function syncMenu(){closeMenu();nav.inert=mobile.matches;activateNav(activeNav);}
+ menuButton.addEventListener('click',()=>{
+  const open=menuButton.getAttribute('aria-expanded')!=='true';
+  header.classList.toggle('menu-open',open);nav.inert=!open;
+  menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'关闭导航菜单':'打开导航菜单');
+  if(open)activateNav(activeNav);
+ });
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&header.classList.contains('menu-open'))closeMenu(true);});
+ document.addEventListener('click',event=>{if(mobile.matches&&!header.contains(event.target))closeMenu();});
+ navLinks.forEach(link=>link.addEventListener('click',()=>{if(mobile.matches){closeMenu();menuButton.focus({preventScroll:true});}}));
+ header.querySelectorAll('.brand,.header-contact').forEach(link=>link.addEventListener('click',()=>{if(mobile.matches)closeMenu();}));
+ mobile.addEventListener('change',syncMenu);
+ syncMenu();
  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
  // Hash routes work both on hosting and in the downloadable single HTML file.
@@ -64,10 +93,12 @@
  function activateNav(link) {
   if (!link) return;
   const bounds = link.getBoundingClientRect(), parent = nav.getBoundingClientRect();
+  if(bounds.width>0){
   nav.style.setProperty('--pill-x', (bounds.left-parent.left)+'px');
   nav.style.setProperty('--pill-y', (bounds.top-parent.top)+'px');
   nav.style.setProperty('--pill-width', bounds.width+'px');
   nav.style.setProperty('--pill-height', bounds.height+'px');
+  }
   navLinks.forEach(a => {const selected=a===link;a.classList.toggle('active',selected);if(selected)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
   if (activeNav !== link && !reduced.matches) {
    nav.classList.remove('pill-bounce'); void nav.offsetWidth; nav.classList.add('pill-bounce');
@@ -95,7 +126,7 @@
   let id='home';
   document.querySelectorAll('main>section').forEach(section=>{if(section.offsetTop<=line)id=section.id;});
   activateNav(navLinks.find(a=>a.hash==='#'+id));
-  if(!reduced.matches) {
+  if(!reduced.matches && fine.matches && !mobile.matches) {
    const hero=document.querySelector('.hero');
    hero.style.setProperty('--hero-parallax',Math.min(window.scrollY*.1,90)+'px');
    document.querySelectorAll('.work-placeholder').forEach(el=>{
@@ -155,9 +186,9 @@
   card.querySelectorAll('.tags span').forEach(tag=>{const chip=document.createElement('span');chip.textContent=tag.textContent;floating.append(chip);});card.append(floating);
   card.addEventListener('pointerenter',()=>{if(fine.matches)chooseAdvantage(card);});
   card.addEventListener('pointerleave',()=>{if(fine.matches&&!card.matches(':focus'))chooseAdvantage(null);});
-  card.addEventListener('focus',()=>chooseAdvantage(card));
+  card.addEventListener('focus',()=>{if(fine.matches||card.matches(':focus-visible'))chooseAdvantage(card);});
   card.addEventListener('blur',()=>chooseAdvantage(null));
-  card.addEventListener('click',()=>chooseAdvantage(card.classList.contains('is-active')?null:card));
+  card.addEventListener('click',()=>chooseAdvantage(fine.matches?card:(card.classList.contains('is-active')?null:card)));
   card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();chooseAdvantage(card.classList.contains('is-active')?null:card);}});
  });
  document.querySelectorAll('.portfolio-showcase .reveal,.advantages-panel .reveal').forEach((el,i)=>el.style.setProperty('--stagger',(i%4)*100+'ms'));

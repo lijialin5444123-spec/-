@@ -1,0 +1,133 @@
+/* Mobile presentation and touch controls; desktop keeps the original layout. */
+.menu-toggle{display:none}
+@media(max-width:960px) and (min-width:761px){
+ .about-showcase{grid-template-columns:minmax(250px,.7fr) minmax(0,1fr);gap:26px}
+ .profile-card{min-height:460px}
+ .about-info-grid{grid-template-columns:1fr;gap:14px}
+ .about-info-grid div{padding-bottom:14px}
+ .career-grid{grid-template-columns:1fr;gap:28px}
+ .career-line{display:none}
+ .contact-stage{grid-template-columns:1fr 340px;gap:24px}
+ .contact-statement h2{font-size:clamp(46px,6.2vw,68px)}
+ .portfolio-showcase{grid-template-columns:1.2fr 1fr;gap:20px}
+ .work-copy{left:24px;bottom:26px}
+ .work-copy strong{font-size:30px}
+}
+@media(max-width:760px){
+ html{scroll-padding-top:calc(96px + env(safe-area-inset-top,0px))}
+ body{padding-bottom:env(safe-area-inset-bottom,0px);overflow-wrap:break-word}
+ .site-header{top:calc(12px + env(safe-area-inset-top,0px));width:calc(100% - 24px);min-height:64px;padding:10px 12px;flex-wrap:nowrap;gap:8px;border-radius:18px}
+ .brand{gap:9px;flex:1;min-width:0;font-size:15px}
+ .brand small{display:none}
+ .brand-mark{width:32px;height:32px;flex-shrink:0}
+ .header-contact{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 12px;font-size:14px;order:2}
+ .menu-toggle{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:44px;height:44px;flex-shrink:0;padding:10px;order:3;border:1px solid var(--line);border-radius:12px;background:#ffb16b0e}
+ .menu-toggle span{display:block;width:19px;height:2px;border-radius:2px;background:#ffd1a7;transition:transform .2s,opacity .2s}
+ .menu-toggle[aria-expanded=true] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+ .menu-toggle[aria-expanded=true] span:nth-child(2){opacity:0}
+ .menu-toggle[aria-expanded=true] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+ .site-header nav{display:none;position:absolute;left:0;right:0;top:calc(100% + 8px);width:100%;flex-direction:column;gap:4px;padding:10px;border:1px solid #ffd1ad38;border-radius:18px;background:#20130cf5;box-shadow:0 20px 55px #0008;backdrop-filter:blur(24px);max-height:calc(100dvh - 115px - env(safe-area-inset-top,0px));overflow-y:auto}
+ .site-header.menu-open nav{display:flex}
+ .site-header nav a{display:flex;align-items:center;min-height:48px;padding:12px 17px;font-size:16px;border-radius:12px}
+ .site-header nav:before{border-radius:12px}
+ /* Keep navigation usable if JavaScript fails or is disabled. */
+ html:not(.mobile-ready) .site-header{flex-wrap:wrap}
+ html:not(.mobile-ready) .site-header nav{position:relative;display:flex;top:auto;flex-direction:row;padding:0;background:none;border:0;overflow:auto;box-shadow:none}
+ html:not(.mobile-ready) .site-header nav a{font-size:13px;min-height:44px;padding:10px}
+ .hero{padding:calc(112px + env(safe-area-inset-top,0px)) 24px 26px;min-height:100svh}
+ .hero-copy{gap:28px;min-height:0}
+ .hero-topline{font-size:12px;gap:10px}
+ .hero-topline span:last-child{font-size:12px;text-align:right}
+ .hero-title-block{padding-top:16px}
+ .hero-kicker{font-size:18px;line-height:1.35;margin-bottom:28px}
+ .hero-title-year{font-size:clamp(100px,29vw,176px);line-height:.9}
+ .hero-title-main{font-size:clamp(34px,11.8vw,76px);line-height:1.25;margin-top:14px;letter-spacing:-.035em}
+ .hero-side h2{font-size:clamp(23px,6.4vw,32px);line-height:1.45;margin-bottom:14px}
+ .hero-side .eyebrow{font-size:13px;margin-bottom:12px}
+ .hero-side>p:not(.eyebrow){font-size:16px;line-height:1.85;margin-bottom:18px}
+ .hero-bottomline{margin-top:8px;font-size:12px}
+ .pill,.contact-pill{min-height:48px;font-size:15px}
+ .section-shell{width:calc(100% - 40px)}
+ .about-section{padding-top:64px}
+ .section-head>p{font-size:clamp(26px,6.2vw,45px);line-height:1.25;letter-spacing:-.025em}
+ .section-head h2{font-size:21px}
+ .profile-card{min-height:0;height:clamp(390px,110vw,480px)}
+ .profile-heading{padding:24px}
+ .profile-heading h3{font-size:42px}
+ .profile-bottom{left:16px;right:16px;bottom:16px;padding:12px;gap:10px}
+ .profile-bottom a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 14px}
+ .about-profile-panel h3{font-size:clamp(29px,7.2vw,44px);line-height:1.25}
+ .about-info-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+ .about-info-grid div{min-width:0}
+ .about-info-grid strong{font-size:16px;font-weight:650;line-height:1.65}
+ .about-stats{gap:14px}
+ .about-stats span{font-size:14px;line-height:1.7}
+ .tags span{font-size:14px}
+ .minor-heading{align-items:flex-start;flex-wrap:wrap;gap:10px}
+ .minor-heading>span,.career-grid article>span,.education article>span{font-size:14px}
+ .education-grid em{font-size:14px;line-height:1.7}
+ .career-grid p{line-height:1.85}
+ .portfolio-showcase{gap:18px}
+ .work-card.card-1,.work-card.card-2,.work-card.card-4{min-height:260px}
+ .work-card.card-3{min-height:350px}
+ .work-copy{left:24px;right:20px;bottom:26px}
+ .work-copy strong{font-size:clamp(25px,6.8vw,32px);line-height:1.4}
+ .work-copy em{font-size:14px;line-height:1.7}
+ .pending{top:22px;left:24px;font-size:13px}
+ .work-index{top:26px;right:24px}
+ .advantage-card{padding:24px 24px 28px;min-height:0}
+ .advantage-card h3{font-size:28px}
+ .advantage-card>span{font-size:13px}
+ .advantage-card .tags{min-height:92px;margin-top:22px}
+ .advantage-card .tags span{font-size:14px}
+ .advantage-card:hover:not(.is-active){transform:none;background:linear-gradient(145deg,#ffad5b0c,#140c06);border-color:var(--line)}
+ .floating-skills{bottom:26px;width:85%;height:88px}
+ .floating-skills span{font-size:14px}
+ .contact-statement h2{font-size:clamp(44px,12vw,86px);line-height:1.12}
+ .contact-card{padding:24px 20px}
+ .contact-card dl>div{grid-template-columns:38px minmax(0,1fr);gap:10px;padding-bottom:12px}
+ .contact-card dd{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:15px;line-height:1.8;min-width:0}
+ .contact-card dd>a{overflow-wrap:anywhere;min-width:0;max-width:100%}
+ .copy{float:none;margin-left:auto;min-width:44px;min-height:44px;padding:8px;font-size:14px;border:1px solid var(--line);border-radius:10px}
+ .contact-note{font-size:14px;line-height:1.8}
+ .resume-link{font-size:15px;min-height:44px;display:flex;align-items:center;margin-top:16px}
+ dialog{max-width:calc(100vw - 24px);max-height:calc(100dvh - 32px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
+ .qr-dialog{padding:16px;width:min(440px,calc(100vw - 24px))}
+ .dialog-close{min-height:44px;padding:8px 16px;position:sticky;top:0;z-index:5;background:#29160c}
+ .qr-dialog img{width:100%;height:auto;max-height:none}
+ .qr-dialog>a{display:flex;align-items:center;justify-content:center;min-height:48px;font-size:15px;margin-top:10px}
+ .category-page{padding:calc(108px + env(safe-area-inset-top,0px)) 0 50px}
+ .category-back{margin-bottom:30px}
+ .category-heading h1{font-size:clamp(30px,8.2vw,44px);line-height:1.4}
+ .category-tabs{gap:9px}
+ .category-tabs a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;font-size:14px;padding:10px 13px}
+ .category-next{font-size:14px;flex-wrap:wrap;gap:12px}
+ .category-next a{min-height:44px;display:flex;align-items:center}
+ .toast{max-width:calc(100% - 32px);width:max-content;bottom:calc(20px + env(safe-area-inset-bottom,0px));font-size:14px;line-height:1.6;border-radius:16px;text-align:center}
+ footer{font-size:12px;line-height:1.8}
+ footer a{display:inline-flex;align-items:center;min-height:44px}
+ .nav-particle{display:none}
+ .hero:before{transform:none;will-change:auto}
+ .work-placeholder,.work-card:hover .work-placeholder{transform:none;will-change:auto}
+}
+@media(max-width:360px){
+ .hero{padding-left:20px;padding-right:20px}
+ .hero-topline{grid-template-columns:1fr;gap:4px}
+ .hero-topline span:last-child{text-align:left}
+ .about-info-grid{grid-template-columns:1fr}
+ .header-contact{padding:0 10px;font-size:13px}
+ .contact-card{padding:22px 16px}
+ .contact-card dl>div{grid-template-columns:1fr;gap:5px}
+ .contact-card dd{width:100%}
+ .work-copy{left:20px}
+}
+@media(hover:none),(pointer:coarse){
+ .pointer-light:before{display:none}
+ .profile-card,.profile-card:hover{transform:none}
+ .proximity-letter{transform:none}
+ .work-card:hover{transform:none}
+}
+@media(max-height:500px) and (orientation:landscape){
+ .hero{min-height:0}
+ .qr-dialog img{max-height:58dvh;width:auto;max-width:100%;object-fit:contain}
+}
